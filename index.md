@@ -4,6 +4,8 @@
 
 ## [AWS](https://thimbletech.github.io/aws/index)
 
+## [fishden](https://thimbletech.github.io/fishy/index)
+
 ## [Typescript](https://thimbletech.github.io/typescript/index)
 
 ## [Katas](https://thimbletech.github.io/katas/index)
