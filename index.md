@@ -1,6 +1,6 @@
 ## Main Menu
 
-## [Fish](https://thimbletech.github.io/fish)
+## [Fish](https://thimbletech.github.io/fish/fish)
 
 ## [AWS](https://thimbletech.github.io/aws)
 
