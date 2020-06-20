@@ -1,15 +1,13 @@
 ## Main Menu
 
-## [fishy](https://thimbletech.github.io/fish/index)
+## [Fish](https://prykortech.github.io/fish/index)
 
-## [AWS](https://thimbletech.github.io/aws/index)
+## [AWS](https://prykortech.github.io/aws/index)
 
-## [fishden](https://thimbletech.github.io/fishy/index)
+## [Typescript](https://prykortech.github.io/typescript/index)
 
-## [Typescript](https://thimbletech.github.io/typescript/index)
+## [Katas](https://prykortech.github.io/katas/index)
 
-## [Katas](https://thimbletech.github.io/katas/index)
-
-## [Thimble](https://thimbletech.github.io/thimble/index)
+## [Thimble](https://prykortech.github.io/thimble/index)
 
 

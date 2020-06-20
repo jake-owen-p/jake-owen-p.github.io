@@ -1,3 +1,3 @@
 ## Fish
-### [General Fish Utilities](https://thimbletech.github.io/fish/general)
-### [Node Support](https://thimbletech.github.io/fish/node)
+### [General Fish Utilities](https://prykortech.github.io/fish/general)
+### [Node Support](https://prykortech.github.io/fish/node)

@@ -1,3 +1,3 @@
 ## AWS
-### [Lambdas](https://thimbletech.github.io/aws/lambdas)
-### [Serverless](https://thimbletech.github.io/aws/serverless)
+### [Lambdas](https://prykortech.github.io/aws/lambdas)
+### [Serverless](https://prykortech.github.io/aws/serverless)
