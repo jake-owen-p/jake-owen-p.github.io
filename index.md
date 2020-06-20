@@ -1,6 +1,6 @@
 ## Main Menu
 
-## [Fish](https://thimbletech.github.io/fish/index)
+## [fishy](https://thimbletech.github.io/fish/index)
 
 ## [AWS](https://thimbletech.github.io/aws/index)
 
