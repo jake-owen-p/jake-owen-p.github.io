@@ -3,6 +3,8 @@
 ### Terraform State
 Terraform requires a state file to keep track of any changes. It is best to host this in the cloud so it can always be accessed.
 
+**Remember to add your local .terraform to .gitignore**
+
 ### S3
 - Create an s3 bucket `<company-name>-terraform-state`
 - Create a folder for the specific service `<service-name>`
