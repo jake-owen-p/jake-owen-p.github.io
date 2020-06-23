@@ -1,4 +1,4 @@
-## SNS
+<!-- ## SNS
 
 ```terraform
 resource "aws_sns_topic" "garment_scraper" {
@@ -52,4 +52,4 @@ resource "aws_sqs_queue_policy" "garment_scraper_queue_policy" {
 }
 POLICY
 }
-```
+``` -->

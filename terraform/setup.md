@@ -1,4 +1,4 @@
-## Terraform Initial Setup
+<!-- ## Terraform Initial Setup
 
 ### Terraform State
 Terraform requires a state file to keep track of any changes. It is best to host this in the cloud so it can always be accessed.
@@ -33,4 +33,4 @@ Each directory will have its own `main.tf` file. Name each directory as the serv
 
 module "sns" {
   source = "./sns"
-}
+} -->
