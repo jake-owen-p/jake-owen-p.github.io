@@ -14,7 +14,7 @@ The list of requirements I had was:
 
 [React Video Recorder](https://www.npmjs.com/package/react-video-recorder) ticked these boxes. 
 
-#### The React Component
+### The React Component
 
 ```html
 <VideoRecorder 
@@ -23,9 +23,9 @@ The list of requirements I had was:
 />
 ```
 
-#### Video Blob Properties
+### Video Blob Properties
 
-#### Examples of adding class names and other properties
+### Examples of adding class names and other properties
 
 ## Uploading to S3
 
