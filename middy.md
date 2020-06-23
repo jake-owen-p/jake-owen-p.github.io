@@ -1,4 +1,4 @@
-## Middy
+# Middy
 Middy is a middleware framework for AWS lambdas.
 
 ### Middy Input Schemas

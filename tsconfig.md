@@ -1,4 +1,4 @@
-## Full TSConfig File
+# Full TSConfig File
 
 ```json
 {

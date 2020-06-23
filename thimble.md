@@ -1,4 +1,4 @@
-## Thimble
+# Thimble
 
 Thimble was a subscription service for user's to rent clothes each month. For £X a month, users received N garments of their choice. At the end of the month, they could choose to buy garments at a discounted rate, or send them bag and get N more garments. Constantly Keeping their wardrobe fresh.
 

@@ -1,4 +1,4 @@
-## Typescript
+# Typescript
 
 ### Jest & Babel
 Required Packages:

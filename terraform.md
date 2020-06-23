@@ -1,4 +1,4 @@
-## Terraform
+# Terraform
 
 ## Terraform Initial Setup
 
