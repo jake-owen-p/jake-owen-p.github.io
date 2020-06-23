@@ -1,3 +1,10 @@
+## Fish
+
+### Package Manager
+https://github.com/jorgebucaran/fisher
+### Bash support for Fish
+https://github.com/edc/bass
+
 ### TSC
 ```bash
 set -Ua fish_user_paths /usr/local/Cellar/node/14.4.0/bin/
