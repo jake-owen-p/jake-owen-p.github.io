@@ -1,23 +1,28 @@
 # Serverless
 
-### Extremely Simple Serverless File
+### Basic serverless.yml file
 
 ```yml
-service: hello-ts-lambda
+service: GarmentFinder.API
 
 frameworkVersion: ">=1.1.0 <2.0.0"
 
 provider:
+  stackName: garment-finder-api
   name: aws
   runtime: nodejs12.x
+  region: eu-west-1
+
+
 
 functions:
   garmentFinder:
+    name: find-garments
     handler: dist/index.handler
     events:
       - http:
-          path: ping
-          method: get
+          path: findgarments
+          method: post
 ```
 
 ### Invoking Lambdas Locally

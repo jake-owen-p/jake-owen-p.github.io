@@ -1,18 +1,42 @@
 # Typescript
 
-### Jest & Babel
-Required Packages:
-```json
-{"@babel/core": "^7.10.2",
-"@babel/preset-env": "^7.10.2",
-"@babel/preset-typescript": "^7.10.1"}
+### Starting Project
+```bash
+npm init
+tsc --init
+npm i jest babel-jest @babel/core @babel/preset-env @babel/preset-typescript
 ```
-Basic `babel.config.json`
+
+### Basic tsconfig.json
+```json
+{
+  "compilerOptions": {
+    "target": "es2020",                         
+    "module": "commonjs",                     
+    "rootDir": "./src",
+    "outDir": "./dist",                       
+    "strict": true,                           
+    "baseUrl": "./",                       
+    "typeRoots": [
+      "node_modules/@types"
+    ],                       
+    "types": [
+      "node",
+      "jest"
+    ],                       
+    "esModuleInterop": true, 
+    "inlineSourceMap": true  
+  },
+  "exclude": ["tests"]
+}
+```
+
+### Basic babel.config.json
 ```json
 {
   "presets": [["@babel/preset-env", {
     "targets": {
-      "node": "current",
+      "node": "current"
     }}],
     "@babel/typescript"]
 }
