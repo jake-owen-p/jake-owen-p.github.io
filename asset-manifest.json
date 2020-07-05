@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/video-messaging/static/css/main.c138a1c7.chunk.css",
+    "main.js": "/video-messaging/static/js/main.7acb3b9c.chunk.js",
+    "main.js.map": "/video-messaging/static/js/main.7acb3b9c.chunk.js.map",
+    "runtime-main.js": "/video-messaging/static/js/runtime-main.79684a69.js",
+    "runtime-main.js.map": "/video-messaging/static/js/runtime-main.79684a69.js.map",
+    "static/js/2.3c1bfa72.chunk.js": "/video-messaging/static/js/2.3c1bfa72.chunk.js",
+    "static/js/2.3c1bfa72.chunk.js.map": "/video-messaging/static/js/2.3c1bfa72.chunk.js.map",
+    "index.html": "/video-messaging/index.html",
+    "precache-manifest.1a2b92bd2ea1808c13ec5a47e4dcc5a6.js": "/video-messaging/precache-manifest.1a2b92bd2ea1808c13ec5a47e4dcc5a6.js",
+    "service-worker.js": "/video-messaging/service-worker.js",
+    "static/css/main.c138a1c7.chunk.css.map": "/video-messaging/static/css/main.c138a1c7.chunk.css.map",
+    "static/js/2.3c1bfa72.chunk.js.LICENSE.txt": "/video-messaging/static/js/2.3c1bfa72.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.79684a69.js",
+    "static/js/2.3c1bfa72.chunk.js",
+    "static/css/main.c138a1c7.chunk.css",
+    "static/js/main.7acb3b9c.chunk.js"
+  ]
+}
