@@ -55,11 +55,11 @@ To keep this article simple, i'll be explaining how cls-hooked leverages async h
 
 Lets take the same scenario from earlier:
 
-1) `requestOne` starts, we add the `requestId` to the `context`, asign an id to the request and its added to the map.
+1) `requestOne` starts, we add the `requestId` to the `context`, asign an id to the request and its added to the map. (I'm adding the request name in the table for clarity)
 
-| asyncId | context |
-|---------|---------|
-|   22    |{ ...ctx }| 
+| request | asyncId | context |
+|---------|---------|---------|
+| requestOne |   22    |{ ...ctx }| 
 
 2) Now our asynchronous db operation starts. async hooks' `init` is called with `init(asyncId, type, triggerAsyncId)`. 
     - `triggerAsyncId` is the asyncId of the operation that called it (in this case 22)
@@ -67,21 +67,25 @@ Lets take the same scenario from earlier:
 
     It checks whether the `triggerAsyncId` exists in the map, and if it does it will add a new entry to the map with the new `asyncId` and the same context.
 
-| asyncId | context |
-|---------|---------|
-|   22    |{ ...ctx }| 
-|   49    |{ ...ctx }| 
+| request | asyncId | context |
+|---------|---------|---------|
+| requestOne |   22    |{ ...ctx }| 
+| requestOne |   49    |{ ...ctx }| 
 
 3) `requestTwo` enters your application, requestId is added to a new context object, an id is assigned to the request and its added to the map.
 
-| asyncId | context |
-|---------|---------|
-|   22    |{ ...ctx }| 
-|   49    |{ ...ctx }| 
-|   72    |{ ...ctx }| 
+| request | asyncId | context |
+|---------|---------|---------|
+| requestOne |   22    |{ ...ctx }| 
+| requestOne |   49    |{ ...ctx }| 
+| requestTwo |   72    |{ ...ctx }| 
 
 4) `requestOne` now goes to log that it has finished its db operation, it knows its current `asyncId` is `49`, so it will get the context of `49` from the map, which contains the `requestId` for `requestOne` and not `requestTwo`. Once this db operation is finished, async hooks `destroy(asyncId)` is called as `destroy(49)` where it will then be removed from the map.
 
+| request | asyncId | context |
+|---------|---------|---------|
+| requestOne |   22    |{ ...ctx }| 
+| requestTwo |   72    |{ ...ctx }| 
 
 So how does this work in code?
 
