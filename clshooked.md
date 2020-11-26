@@ -167,7 +167,7 @@ Below is a [Middy](https://github.com/middyjs/middy) middleware for AWS Lambda t
 import middy from '@middy/core';
 import { APIGatewayEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { v4 as uuid } from 'uuid';
-import logger from '@refurbishme/logger';
+import logger from './logger';
 
 export function requestIdResolver(): middy.MiddlewareObject<APIGatewayEvent, APIGatewayProxyResult> {
     return {
