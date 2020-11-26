@@ -1,8 +1,6 @@
 # Simple Request Specific Logging for Node.js
 
-// kind of want aws lambda in the title
-
-If you want to skip to the code without explanation, please skip to [#Logger in Action]
+If you want to skip to the code, you can here [Logger in Action](#Logger-in-action). You can plug the logger in to any web app thats invoked with a callback, usually through middleware. 
 
 ### Problem Statement
 When developing an API it is good practice to have a requestId that is persisted throughout the service and to any dependencies. This way there is a singular identifier that ties a whole journey together.
@@ -49,11 +47,11 @@ To keep this article simple, i'll be explaining how cls-hooked leverages async h
 
 [Exploring Node.js Async Hooks](https://blog.appsignal.com/2020/09/30/exploring-nodejs-async-hooks.html)
 
-// add stuff for cls hooked
+[Detailed cls-hooked explanation](https://habr.com/en/post/442392/)
 
 ### cls-hooked
 
-cls-hooked keeps track of asynchronous operations by creating a map of `asyncId:context`, where `asyncId` is always unique and `context` contains details about the request, where you can store your request level data.
+[cls-hooked](https://www.npmjs.com/package/cls-hooked) keeps track of asynchronous operations by creating a map of `asyncId:context`, where `asyncId` is always unique and `context` contains details about the request, where you can store your request level data.
 
 Lets take the same scenario from earlier:
 
@@ -128,16 +126,17 @@ function logInfo(message: string): void {
 ```
 
 
-### Logger in Action
+## Logger in Action
 
 ```ts
 import { getNamespace, createNamespace, Namespace } from 'cls-hooked';
 
+let clsNamespace: Namespace | undefined = getNamespace('app');
 export default class logger {
-    static setDefaultsAndCreateNamespace(traceId: string, next: ()=>void ) {
+    static setDefaultsAndCreateNamespace(requestId: string, next: ()=>void ) {
         if(!clsNamespace) clsNamespace = createNamespace('app');
         clsNamespace.run(() => {
-            (clsNamespace as Namespace).set('traceId', traceId);
+            (clsNamespace as Namespace).set('requestId', requestId);
             next();
         });
     }
@@ -145,7 +144,7 @@ export default class logger {
     static info(message: string, additionalProps: object = {}){
         console.info({
             name: message,
-            traceId: (getNamespace('app') as Namespace).get('traceId'),
+            requestId: (getNamespace('app') as Namespace).get('requestId'),
             ...additionalProps
         });
     }
@@ -155,9 +154,44 @@ export default class logger {
             name: message,
             message: error.message,
             stackTrace: error.stack,
-            traceId: (getNamespace('app') as Namespace).get('traceId')
+            requestId: (getNamespace('app') as Namespace).get('requestId')
         });
     }
 }
-
 ```
+
+### Middy
+Below is a [Middy](https://github.com/middyjs/middy) middleware for AWS Lambda that utilizes the above logger. It checks if the request has a `requestId` header, and if so it sets the re
+
+```ts
+import middy from '@middy/core';
+import { APIGatewayEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { v4 as uuid } from 'uuid';
+import logger from '@refurbishme/logger';
+
+export function requestIdResolver(): middy.MiddlewareObject<APIGatewayEvent, APIGatewayProxyResult> {
+    return {
+        before: (handler : middy.HandlerLambda<APIGatewayEvent, APIGatewayProxyResult>, next) => {
+            const requestIdKey = findKey(handler.event.headers, 'requestId')
+            handler.event.headers.requestIdKey = requestIdKey
+                ? handler.event.headers[requestIdKey]
+                : uuid();
+            logger.setDefaultsAndCreateNamespace(handler.event.headers.requestId, next);
+        }
+    };
+}
+export function findKey(object: object, key: string) {
+    return Object.keys(object).find(k => k.toLowerCase() === key.toLowerCase());
+}
+```
+
+For my own use cases, I chose a very simple wrapper around console log. However, `cls-hooked` can also be plugged in to popular logging libraries. Here is an [alternative using winston](https://danoctavian.com/2019/04/13/thinking-coroutines-nodejs-part2/)
+
+## Conclusion
+
+Async hooks offers powerful utilties to track the lifecycle of asynchronous operations. `cls-hooked` leverages those in a way that offers request level storage for Node.js, which is much more powerful that the example i've given above. For example, you can use this persistant storage to store information you access sporodically accross the application like an accountId instead of passing it down every function.
+
+However, there two downsides that has to be noted. 
+1) As of Node.js v15, async hooks is still under the experimental umbrella. Meaning there can me non-backward compatible changes or removal in any release, so you need to use it at your own risk.
+2) Using this can have an affect on performance, as `bmeurer` shows with his [Async hooks performance impact](https://github.com/bmeurer/async-hooks-performance-impact). The level of performance impact will depend on your application, framework and use case. 
+
