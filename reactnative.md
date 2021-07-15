@@ -81,7 +81,7 @@ overrides: [
 ],
 ```
 
-### Android Issues
+## Android Issues
 When trying to load on a physical device, there error `Unable to load script`, kept occuring. The solution is convoluted and requires creating the bundle yourself, yet to find a better solution.
 
 Create assets folder
@@ -93,3 +93,11 @@ Generate bundle
 ```bash
 react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
 ```
+
+## Releasing
+### Guide
+https://www.instamobile.io/android-development/generate-react-native-release-build-android/
+### Useful Commands
+`npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res`
+`./gradlew clean`
+`./gradlew assembleRelease`
