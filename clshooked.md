@@ -28,7 +28,7 @@ function logInfo(message: string): void {
 
 See the problem? By the time `requestOne` gets to logging that it has completed its operation in the database, `requestTwo` has started and overriden the `requestId` value. Request one has now logged a message with the wrong requestId and we lose one of the main benefits of requestId that was mentioned at the start `This way there is a singular identifier that ties a whole journey together.`.
 
-So how do we ensure that when we want to log, we retrieve the correct `requestId` for that request? Due to the nature of Node.js, it turns from asking `How can access properties globally for a specific request?` to `How can we keep track of a request's asynchronous operations?`
+So how do we ensure that when we want to log, we retrieve the correct `requestId` for that request? Due to the nature of Node.js, it turns from asking `How can we access properties globally for a specific request?` to `How can we keep track of a request's asynchronous operations?`
 
 ## Async hooks & cls-hooked
 
@@ -65,7 +65,7 @@ Lets take the same scenario from earlier:
     - `triggerAsyncId` is the asyncId of the operation that called it (in this case 22)
     - `asyncId` is the id of the new resource
 
-    It checks whether the `triggerAsyncId` exists in the map, and if it does it will add a new entry to the map with the new `asyncId` and the same context.
+It checks whether the `triggerAsyncId` exists in the map, and if it does it will add a new entry to the map with the new `asyncId` and the same context.
 
 | request | asyncId | context |
 |---------|---------|---------|
@@ -120,7 +120,8 @@ function customMiddleware(): MiddlewareObject {
 }
 ```
 
-Then when you want to access the request level data, you can simple use `useNamespace('app')`, e.g. in our logging function from earlier.
+Then when you want to access the request level data, you can simply use `useNamespace('app')`:
+
 ```ts
 function logInfo(message: string): void {
     console.log(message, {
@@ -129,6 +130,7 @@ function logInfo(message: string): void {
 }
 ```
 
+I know that feels like a lot of information, but its implementaton ends up being fairly easy to reason with.
 
 ## Logger in Action
 
@@ -137,7 +139,7 @@ import { getNamespace, createNamespace, Namespace } from 'cls-hooked';
 
 let clsNamespace: Namespace | undefined = getNamespace('app');
 export default class logger {
-    static setDefaultsAndCreateNamespace(requestId: string, next: ()=>void ) {
+    static setDefaultsAndCreateNamespace(requestId: string, next: () => void ) {
         if(!clsNamespace) clsNamespace = createNamespace('app');
         clsNamespace.run(() => {
             (clsNamespace as Namespace).set('requestId', requestId);
@@ -165,7 +167,7 @@ export default class logger {
 ```
 
 ### Middy
-Below is a [Middy](https://github.com/middyjs/middy) middleware for AWS Lambda that utilizes the above logger. It checks if the request has a `requestId` header, and if so it sets the re
+Below is a [Middy](https://github.com/middyjs/middy) middleware for AWS Lambda that utilizes the above logger. It checks if the request has a `requestId` header, and if so it sets the requestId to the header value, else generate a uuid.
 
 ```ts
 import middy from '@middy/core';
@@ -195,7 +197,7 @@ For my own use cases, I chose a very simple wrapper around console log. However,
 
 Async hooks offers powerful utilties to track the lifecycle of asynchronous operations. `cls-hooked` leverages those in a way that offers request level storage for Node.js, which is much more powerful that the example i've given above. For example, you can use this persistant storage to store information you access sporodically accross the application like an accountId instead of passing it down every function.
 
-However, there two downsides that has to be noted. 
-1) As of Node.js v15, async hooks is still under the experimental umbrella. Meaning there can me non-backward compatible changes or removal in any release, so you need to use it at your own risk.
+However, there two downsides that have to be noted. 
+1) As of Node.js v15, async hooks is still under the experimental umbrella. Meaning there can make non-backward compatible changes or removals in any release, use it at your own risk.
 2) Using this can have an affect on performance, as `bmeurer` shows with his [Async hooks performance impact](https://github.com/bmeurer/async-hooks-performance-impact). The level of performance impact will depend on your application, framework and use case. 
 
