@@ -1,3 +1,10 @@
+---
+layout: default
+title: Terraform - Setup
+has_children: true
+permalink: docs/terraform
+---
+
 # Terraform - Setup
 
 ## Terraform Initial Setup
