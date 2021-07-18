@@ -1,3 +1,9 @@
+---
+layout: default
+title: EC2
+parent: Terraform
+---
+
 # Terraform - EC2
 
 Creating the ec2 instance is the simple part

@@ -1,3 +1,9 @@
+---
+layout: default
+title: SNS & SQS
+parent: Terraform
+---
+
 # Terraform - SNS & SQS
 
 ## SNS
