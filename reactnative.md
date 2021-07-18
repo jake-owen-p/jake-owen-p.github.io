@@ -101,3 +101,16 @@ https://www.instamobile.io/android-development/generate-react-native-release-bui
 `npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res`
 `./gradlew clean`
 `./gradlew assembleRelease`
+
+## Product Ids for in-app purchases
+
+`<app>_<price>_<duration>_<intro duration><intro price>`
+- app: Some prefix that will be unique to your app, since the same product Id cannot but used in any future apps you create.
+- price: The price you plan to charge for the product in your default currency.
+- duration: The duration of the normal subscription period.
+- intro duration: The duration of the introductory period, if any.
+- intro price: The price of the introductory period in your default currency, if any.
+
+## Creating App Icons
+### Guide
+https://medium.com/@ansonmathew/app-icon-in-react-native-ios-and-android-6165757e3fdb
